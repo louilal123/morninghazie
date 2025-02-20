@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        #surpriseButton {
+            padding: 20px 40px;
+            font-size: 24px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        #surpriseButton:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .surprise-content {
+            display: none;
+            animation: fadeIn 1s;
+        }
+
+        .message {
+            font-size: 48px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 20px;
+        }
+
+        .restart-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: rgba(255,255,255,0.3);
+            border: 2px solid white;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .restart-button:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            border-radius: 50%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="surpriseButton">Click for a Surprise! ✨</button>
+        <div id="surpriseContent" class="surprise-content">
+            <div class="message"></div>
+            <button class="restart-button">Try Again! 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        // Define messages array outside any function to maintain global scope
+        const surpriseMessages = [
+            "You're Amazing! 🌟",
+            "Keep Shining! ✨",
+            "You Make the World Better! 🌈",
+            "You're Awesome! 🎉",
+            "Have a Wonderful Day! 🌺",
+            "You're Fantastic! 💫",
+            "You're Extraordinary! 🌠",
+            "You Light Up The Room! 🌞",
+            "You're Incredible! ⭐",
+            "You're Magic! ✨"
+        ];
+
+        // Track last message to avoid repetition
+        let lastMessageIndex = -1;
+
+        function getRandomMessage() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * surpriseMessages.length);
+            } while (randomIndex === lastMessageIndex && surpriseMessages.length > 1);
+            
+            lastMessageIndex = randomIndex;
+            return surpriseMessages[randomIndex];
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animation = `confettiFall ${1 + Math.random() * 2}s linear forwards`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Add click handlers for the buttons
+        document.getElementById('surpriseButton').addEventListener('click', function() {
+            // Hide the surprise button
+            this.style.display = 'none';
+            
+            // Show surprise content with random message
+            const surpriseContent = document.getElementById('surpriseContent');
+            surpriseContent.style.display = 'block';
+            
+            // Set random message using our new function
+            const messageElement = document.querySelector('.message');
+            messageElement.textContent = getRandomMessage();
+            
+            // Create confetti effect
+            createConfetti();
+        });
+
+        document.querySelector('.restart-button').addEventListener('click', function() {
+            // Hide surprise content
+            document.getElementById('surpriseContent').style.display = 'none';
+            
+            // Show surprise button again
+            document.getElementById('surpriseButton').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
