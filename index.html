@@ -1,7 +1,9 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Box 🎁</title>
     <style>
         body {
             margin: 0;
@@ -12,15 +14,17 @@
             background: linear-gradient(135deg, #6e8efb, #a777e3);
             font-family: Arial, sans-serif;
             overflow: hidden;
+            text-align: center;
         }
 
         .container {
-            text-align: center;
+            width: 90%;
+            max-width: 500px;
         }
 
         #surpriseButton {
             padding: 20px 40px;
-            font-size: 24px;
+            font-size: 26px;
             background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
             border: none;
             border-radius: 50px;
@@ -28,6 +32,8 @@
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 350px;
         }
 
         #surpriseButton:hover {
@@ -41,7 +47,7 @@
         }
 
         .message {
-            font-size: 48px;
+            font-size: 40px;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             margin: 20px;
@@ -49,7 +55,7 @@
 
         .restart-button {
             padding: 15px 30px;
-            font-size: 18px;
+            font-size: 20px;
             background: rgba(255,255,255,0.3);
             border: 2px solid white;
             border-radius: 25px;
@@ -64,8 +70,8 @@
 
         .confetti {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background-color: #f00;
             border-radius: 50%;
         }
@@ -80,6 +86,35 @@
                 transform: translateY(100vh) rotate(360deg);
             }
         }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .message {
+                font-size: 32px;
+            }
+            #surpriseButton {
+                font-size: 22px;
+                padding: 18px 36px;
+            }
+            .restart-button {
+                font-size: 18px;
+                padding: 12px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .message {
+                font-size: 28px;
+            }
+            #surpriseButton {
+                font-size: 20px;
+                padding: 16px 32px;
+            }
+            .restart-button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -92,7 +127,6 @@
     </div>
 
     <script>
-        // Define messages array outside any function to maintain global scope
         const surpriseMessages = [
             "You're Amazing! 🌟",
             "Keep Shining! ✨",
@@ -106,7 +140,6 @@
             "You're Magic! ✨"
         ];
 
-        // Track last message to avoid repetition
         let lastMessageIndex = -1;
 
         function getRandomMessage() {
@@ -132,28 +165,20 @@
             }
         }
 
-        // Add click handlers for the buttons
         document.getElementById('surpriseButton').addEventListener('click', function() {
-            // Hide the surprise button
             this.style.display = 'none';
             
-            // Show surprise content with random message
             const surpriseContent = document.getElementById('surpriseContent');
             surpriseContent.style.display = 'block';
             
-            // Set random message using our new function
             const messageElement = document.querySelector('.message');
             messageElement.textContent = getRandomMessage();
             
-            // Create confetti effect
             createConfetti();
         });
 
         document.querySelector('.restart-button').addEventListener('click', function() {
-            // Hide surprise content
             document.getElementById('surpriseContent').style.display = 'none';
-            
-            // Show surprise button again
             document.getElementById('surpriseButton').style.display = 'block';
         });
     </script>
