@@ -15,6 +15,8 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
             text-align: center;
+            padding: 20px;
+            flex-direction: column;
         }
 
         .container {
@@ -24,7 +26,7 @@
 
         #surpriseButton {
             padding: 20px 40px;
-            font-size: 26px;
+            font-size: 1.5em;
             background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
             border: none;
             border-radius: 50px;
@@ -41,31 +43,12 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
-        .surprise-content {
-            display: none;
-            animation: fadeIn 1s;
-        }
-
         .message {
-            font-size: 40px;
+            font-size: 2em;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             margin: 20px;
-        }
-
-        .restart-button {
-            padding: 15px 30px;
-            font-size: 20px;
-            background: rgba(255,255,255,0.3);
-            border: 2px solid white;
-            border-radius: 25px;
-            color: white;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .restart-button:hover {
-            background: rgba(255,255,255,0.5);
+            animation: fadeIn 1s;
         }
 
         .confetti {
@@ -90,29 +73,21 @@
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .message {
-                font-size: 32px;
+                font-size: 1.8em;
             }
             #surpriseButton {
-                font-size: 22px;
+                font-size: 1.3em;
                 padding: 18px 36px;
-            }
-            .restart-button {
-                font-size: 18px;
-                padding: 12px 24px;
             }
         }
 
         @media (max-width: 480px) {
             .message {
-                font-size: 28px;
+                font-size: 1.5em;
             }
             #surpriseButton {
-                font-size: 20px;
-                padding: 16px 32px;
-            }
-            .restart-button {
-                font-size: 16px;
-                padding: 10px 20px;
+                font-size: 1.2em;
+                padding: 15px 30px;
             }
         }
     </style>
@@ -120,10 +95,7 @@
 <body>
     <div class="container">
         <button id="surpriseButton">Click for a Surprise! ✨</button>
-        <div id="surpriseContent" class="surprise-content">
-            <div class="message"></div>
-            <button class="restart-button">Try Again! 🔄</button>
-        </div>
+        <div class="message" id="message"></div>
     </div>
 
     <script>
@@ -166,20 +138,9 @@
         }
 
         document.getElementById('surpriseButton').addEventListener('click', function() {
-            this.style.display = 'none';
-            
-            const surpriseContent = document.getElementById('surpriseContent');
-            surpriseContent.style.display = 'block';
-            
-            const messageElement = document.querySelector('.message');
+            const messageElement = document.getElementById('message');
             messageElement.textContent = getRandomMessage();
-            
             createConfetti();
-        });
-
-        document.querySelector('.restart-button').addEventListener('click', function() {
-            document.getElementById('surpriseContent').style.display = 'none';
-            document.getElementById('surpriseButton').style.display = 'block';
         });
     </script>
 </body>
